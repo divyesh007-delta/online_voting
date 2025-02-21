@@ -49,106 +49,144 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-green-500 px-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-extrabold mb-6 text-center text-blue-700">Create Account</h2>
-
-        {error && (
-          <p className="bg-red-100 text-red-700 border-l-4 border-red-500 p-3 mb-4 rounded text-center font-medium">
-            {error}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white shadow-lg rounded-xl overflow-hidden flex max-w-4xl w-full">
+        {/* Left Section - Branding */}
+        <div className="hidden md:flex flex-col justify-center items-center bg-blue-500 text-white w-1/2 p-10">
+          <h1 className="text-2xl font-extrabold">🗳️ Online Voting</h1>
+          <p className="mt-3 text-lg font-medium text-center">
+            Vote Securely & Fairly <br />
+            Join the Future of Elections!
           </p>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name Input */}
-          <div>
-            <input
-              type="text"
-              placeholder="John Doe"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-              required
-            />
+          <div className="mt-6 space-y-3">
+            <span className="text-5xl">📊</span>
+            <span className="text-5xl">🗳️</span>
+            <span className="text-5xl">✅</span>
           </div>
+        </div>
 
-          {/* Email Input */}
-          <div>
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-              required
-            />
-          </div>
+        {/* Right Section - Form */}
+        <div className="w-full md:w-1/2 p-8">
+          <h2 className="text-3xl font-extrabold mb-4 text-gray-800 text-center">
+            Create Account
+          </h2>
 
-          {/* Password Input with Visibility Toggle */}
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-              required
-            />
+          {error && (
+            <p className="bg-red-100 text-red-700 border-l-4 border-red-500 p-3 mb-4 rounded text-center font-medium">
+              {error}
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name Input */}
+            <div>
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            {/* Email Input */}
+            <div>
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            {/* Password Input with Visibility Toggle */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-2 text-gray-600 hover:text-gray-900"
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            {/* Terms & Conditions Checkbox */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={agree}
+                onChange={() => setAgree(!agree)}
+                className="w-4 h-4"
+              />
+              <label className="text-sm text-gray-600">
+                I agree to the{" "}
+                <Link to="/terms" className="text-blue-500 underline">
+                  Terms of Service
+                </Link>
+              </label>
+            </div>
+
+            {/* Submit Button */}
             <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2 text-gray-600 hover:text-gray-900 transition-all"
+              type="submit"
+              className={`w-full py-3 rounded-lg text-white font-semibold transition-all ${
+                isLoading
+                  ? "opacity-50 cursor-not-allowed bg-gray-400"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
+              disabled={isLoading}
             >
-              {showPassword ? "🙈" : "👁️"}
+              {isLoading ? "Signing up..." : "SIGN UP"}
             </button>
+          </form>
+
+          {/* Social Login Options */}
+          <div className="mt-4">
+            <p className="text-center text-gray-600">Or Sign Up With</p>
+            <div className="flex justify-center space-x-4 mt-3">
+              <button className="bg-white border p-2 rounded-full shadow-md hover:shadow-lg transition">
+                🌐 Google
+              </button>
+              <button className="bg-white border p-2 rounded-full shadow-md hover:shadow-lg transition">
+                📘 Facebook
+              </button>
+              <button className="bg-white border p-2 rounded-full shadow-md hover:shadow-lg transition">
+                🕊️ Twitter
+              </button>
+            </div>
           </div>
 
-          {/* Confirm Password */}
-          <div>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-              required
-            />
-          </div>
-
-          {/* Terms & Conditions Checkbox */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={() => setAgree(!agree)}
-              className="w-4 h-4"
-            />
-            <label className="text-sm text-gray-600">
-              I agree to the <Link to="/terms" className="text-blue-500 underline">Terms of Service</Link>
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className={`w-full py-3 rounded-lg text-white font-semibold transition-all transform hover:scale-105 ${
-              isLoading
-                ? "opacity-50 cursor-not-allowed bg-gray-400"
-                : "bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-500 hover:to-green-500"
-            }`}
-            disabled={isLoading}
-          >
-            {isLoading ? "Signing up..." : "SIGN UP"}
-          </button>
-        </form>
-
-        {/* Login Link */}
-        <p className="text-center mt-4 text-gray-600">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 font-semibold hover:underline">
-            Login here
-          </Link>
-        </p>
+          {/* Login Link */}
+          <p className="text-center mt-4 text-gray-600">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 font-semibold hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )

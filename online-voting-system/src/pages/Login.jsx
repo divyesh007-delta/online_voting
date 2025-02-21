@@ -34,13 +34,13 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 px-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-zinc-950 text-center px-6  w-[100vw]">
       <div className="bg-white bg-opacity-90 backdrop-blur-lg p-8 rounded-xl shadow-lg w-full max-w-md">
         <h2 className="text-4xl font-bold mb-6 text-center text-blue-800">Login</h2>
 
         {error && (
           <p className="bg-red-100 text-red-700 border-l-4 border-red-500 p-3 mb-4 rounded">
-            {error}
+            {error} 
           </p>
         )}
 
