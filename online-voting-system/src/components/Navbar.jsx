@@ -16,7 +16,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex space-x-6 gap-[4vw]">
           <NavLink to="/" active={location.pathname === "/"}>Home</NavLink>
           <NavLink to="/login" active={location.pathname === "/login"}>Login</NavLink>
           <NavLink to="/register" active={location.pathname === "/register"}>Register</NavLink>
