@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-zinc-950 text-center px-6  bg-gray-100 w-[100vw]">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-zinc-950 text-center px-6  w-[100vw]">
       {/* Glassmorphism Card
       -gradient-to-br from-blue-800 to
       min-h-screen flex flex-col justify-center items-center bg-zinc-950 text-center px-6  
@@ -26,7 +26,7 @@ const Home = () => {
           {/* Register Button */}
           <Link
             to="/register"
-            className="bg-blue-600 text-white text-lg px-8 py-4  rounded-full font-bold shadow-lg transition-all transform hover:scale-105 hover:bg-blue-700"
+            className="bg-blue-400 text-white text-lg px-8 py-4  rounded-full font-bold shadow-lg transition-all transform hover:scale-105 hover:bg-blue-700"
           >
             📝 Register to Vote
           </Link>
