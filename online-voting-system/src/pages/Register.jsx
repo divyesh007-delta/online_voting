@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { signInWithGoogle } from "../firebase"
 
 const Register = () => {
   const [name, setName] = useState("")
@@ -11,7 +12,6 @@ const Register = () => {
   const [agree, setAgree] = useState(false)
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -37,9 +37,7 @@ const Register = () => {
     }
 
     try {
-      // Simulating an API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
-      console.log("Registration attempt", { name, email, password })
       alert("🎉 Registration successful!")
     } catch (err) {
       setError("❌ Registration failed. Try again.")
@@ -49,92 +47,96 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-green-500 px-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-extrabold mb-6 text-center text-blue-700">Create Account</h2>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#0F3460] to-[#16213E] text-center px-6 w-full overflow-hidden">
+      <div className="bg-opacity-90 backdrop-blur-lg p-12 md:p-16 rounded-2xl shadow-2xl max-w-lg w-full">
+        
+        {/* Title */}
+        <h2 className="text-5xl font-extrabold mb-6 text-white">Create Account</h2>
 
+        {/* Error Message */}
         {error && (
-          <p className="bg-red-100 text-red-700 border-l-4 border-red-500 p-3 mb-4 rounded text-center font-medium">
+          <p className="bg-red-500 text-white py-3 px-4 rounded mb-4 font-medium">
             {error}
           </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Register Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          
           {/* Name Input */}
           <div>
+            <label className="block text-gray-200 font-medium mb-1 text-left">
+              Full Name
+            </label>
             <input
               type="text"
-              placeholder="John Doe"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-none rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
               required
             />
           </div>
 
           {/* Email Input */}
           <div>
+            <label className="block text-gray-200 font-medium mb-1 text-left">
+              Email Address
+            </label>
             <input
               type="email"
-              placeholder="Your Email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-none rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
               required
             />
           </div>
 
-          {/* Password Input with Visibility Toggle */}
-          <div className="relative">
+          {/* Password Input */}
+          <div>
+            <label className="block text-gray-200 font-medium mb-1 text-left">
+              Password
+            </label>
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              type="password"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-none rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
               required
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2 text-gray-600 hover:text-gray-900 transition-all"
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </button>
           </div>
 
           {/* Confirm Password */}
           <div>
+            <label className="block text-gray-200 font-medium mb-1 text-left">
+              Confirm Password
+            </label>
             <input
               type="password"
-              placeholder="Confirm Password"
+              placeholder="Re-enter password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-none rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
               required
             />
           </div>
 
-          {/* Terms & Conditions Checkbox */}
+          {/* Terms & Conditions */}
           <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={() => setAgree(!agree)}
-              className="w-4 h-4"
-            />
-            <label className="text-sm text-gray-600">
-              I agree to the <Link to="/terms" className="text-blue-500 underline">Terms of Service</Link>
+            <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} className="w-4 h-4" />
+            <label className="text-sm text-gray-300">
+              I agree to the{" "}
+              <Link to="/terms" className="text-blue-400 underline">Terms of Service</Link>
             </label>
           </div>
 
-          {/* Submit Button */}
+          {/* Register Button */}
           <button
             type="submit"
-            className={`w-full py-3 rounded-lg text-white font-semibold transition-all transform hover:scale-105 ${
-              isLoading
-                ? "opacity-50 cursor-not-allowed bg-gray-400"
-                : "bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-500 hover:to-green-500"
+            className={`w-full bg-blue-500 text-white py-3 rounded-lg font-semibold transition-all transform hover:scale-105 hover:bg-blue-600 shadow-md ${
+              isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isLoading}
           >
@@ -142,10 +144,18 @@ const Register = () => {
           </button>
         </form>
 
-        {/* Login Link */}
-        <p className="text-center mt-4 text-gray-600">
+        {/* Google Sign-In */}
+        <button
+          onClick={signInWithGoogle}
+          className="w-full mt-4 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 shadow-md transition-all transform hover:scale-105"
+        >
+          Sign in with Google
+        </button>
+
+        {/* Back to Login */}
+        <p className="text-center mt-6 text-gray-400">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 font-semibold hover:underline">
+          <Link to="/login" className="text-blue-400 font-semibold hover:underline">
             Login here
           </Link>
         </p>

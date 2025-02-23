@@ -8,7 +8,8 @@ const Navbar = () => {
   const location = useLocation()
 
   return (
-    <nav className="bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 left-0 w-full z-50">
+    <nav className="bg-[#16213E] bg-opacity-90 backdrop-blur-md shadow-md fixed top-0 left-0 w-full z-50 overflow-hidden">
+
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-white text-2xl font-bold tracking-wide">
@@ -16,7 +17,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 gap-[4vw]">
+        <div className="hidden md:flex space-x-6">
           <NavLink to="/" active={location.pathname === "/"}>Home</NavLink>
           <NavLink to="/login" active={location.pathname === "/login"}>Login</NavLink>
           <NavLink to="/register" active={location.pathname === "/register"}>Register</NavLink>
@@ -44,7 +45,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 ease-in-out transform ${
+        className={`md:hidden bg-gradient-to-r from-[#0F3460] to-[#16213E] transition-all duration-300 ease-in-out transform ${
           isOpen ? "max-h-screen opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-0"
         }`}
       >
@@ -60,10 +61,11 @@ const Navbar = () => {
   )
 }
 
+// Custom NavLink Component
 const NavLink = ({ to, children, active, onClick }) => (
   <Link
     to={to}
-    className={`relative text-white text-lg font-medium px-4 py-2 transition duration-300 hover:text-blue-200 ${
+    className={`relative text-white text-lg font-medium px-4 py-2 transition duration-300 hover:text-blue-300 ${
       active ? "text-blue-300 font-bold after:w-full" : "after:w-0"
     } after:absolute after:left-0 after:bottom-[-2px] after:bg-white after:h-[2px] after:transition-all after:duration-300 hover:after:w-full`}
     onClick={onClick}
