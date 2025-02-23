@@ -11,8 +11,4 @@
 
 body {
   font-family: sans-serif;
-  overflow: hidden;
-}
-html, body {
-  overscroll-behavior: none;
 }
